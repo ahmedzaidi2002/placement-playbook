@@ -1,0 +1,98 @@
+baseURL: http://localhost:1313/
+locale: en-us
+title: Placement Playbook
+
+module:
+  imports:
+    - path: github.com/imfing/hextra
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+    extensions:
+      # Hugo pulls math out of the Markdown before parsing it (so `_` and `\` survive)
+      # and Hextra renders it with Hugo's built-in KaTeX at build time.
+      passthrough:
+        enable: true
+        delimiters:
+          block: [['\[', '\]'], ['$$', '$$']]
+          inline: [['\(', '\)'], ['$', '$']]
+  highlight:
+    noClasses: false
+
+menus:
+  main:
+    - name: Companies
+      pageRef: /companies
+      weight: 1
+    - name: Core
+      pageRef: /core
+      weight: 2
+    - name: Projects
+      pageRef: /projects
+      weight: 3
+    - name: System Design
+      pageRef: /system-design
+      weight: 4
+    - name: Question Bank
+      pageRef: /question-bank
+      weight: 5
+    - name: Guide
+      pageRef: /guide
+      weight: 6
+    - name: Search
+      weight: 7
+      params:
+        type: search
+
+params:
+  navbar:
+    displayTitle: true
+    displayLogo: false
+  footer:
+    enable: true
+    displayCopyright: false
+    displayPoweredBy: true
+  theme:
+    default: system
+    displayToggle: true
+  page:
+    width: normal
+  search:
+    enable: true
+    type: flexsearch
+  editURL:
+    enable: false
+  # Mermaid is vendored too (version in assets/js/MERMAID_VERSION.txt). Hextra's default
+  # downloads mermaid@latest at build time, which is neither pinned nor offline.
+  mermaid:
+    js: js/mermaid.min.js
+  # KaTeX stylesheet and fonts are vendored in assets/css so math renders offline.
+  # Hextra's default fetches them from a CDN. The CSS version has to match the KaTeX
+  # that is built into Hugo (0.18.x from Hugo 0.166).
+  math:
+    engine: katex
+    katex:
+      css: css/katex.min.css
+      assets:
+        - css/fonts/KaTeX_AMS-Regular.woff2
+        - css/fonts/KaTeX_Caligraphic-Bold.woff2
+        - css/fonts/KaTeX_Caligraphic-Regular.woff2
+        - css/fonts/KaTeX_Fraktur-Bold.woff2
+        - css/fonts/KaTeX_Fraktur-Regular.woff2
+        - css/fonts/KaTeX_Main-Bold.woff2
+        - css/fonts/KaTeX_Main-BoldItalic.woff2
+        - css/fonts/KaTeX_Main-Italic.woff2
+        - css/fonts/KaTeX_Main-Regular.woff2
+        - css/fonts/KaTeX_Math-BoldItalic.woff2
+        - css/fonts/KaTeX_Math-Italic.woff2
+        - css/fonts/KaTeX_SansSerif-Bold.woff2
+        - css/fonts/KaTeX_SansSerif-Italic.woff2
+        - css/fonts/KaTeX_SansSerif-Regular.woff2
+        - css/fonts/KaTeX_Script-Regular.woff2
+        - css/fonts/KaTeX_Size1-Regular.woff2
+        - css/fonts/KaTeX_Size2-Regular.woff2
+        - css/fonts/KaTeX_Size3-Regular.woff2
+        - css/fonts/KaTeX_Size4-Regular.woff2
+        - css/fonts/KaTeX_Typewriter-Regular.woff2

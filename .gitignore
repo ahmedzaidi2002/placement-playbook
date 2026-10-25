@@ -1,0 +1,9 @@
+public/
+resources/
+.hugo_build.lock
+# latex2hugo: extracted cloud-branch sources and the TikZ compile cache
+tools/latex2hugo/.src/
+tools/latex2hugo/.cache/
+__pycache__/
+.hugo-bin/
+.vercel/
