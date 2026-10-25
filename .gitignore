@@ -7,3 +7,6 @@ tools/latex2hugo/.cache/
 __pycache__/
 .hugo-bin/
 .vercel/
+
+.vercel
+.env*
