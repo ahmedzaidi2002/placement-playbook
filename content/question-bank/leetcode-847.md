@@ -3,7 +3,7 @@ title: "847. Shortest Path Visiting All Nodes"
 weight: 1
 ---
 
-[LeetCode 847](https://leetcode.com/problems/shortest-path-visiting-all-nodes/) · Hard · BFS, bitmask
+[LeetCode 847](https://leetcode.com/problems/shortest-path-visiting-all-nodes/) · Hard · BFS, bitmask · Also Flipkart OA (related to Monica and Her Shifts)
 
 **Approach.** A state is (current node, set of visited nodes as a bitmask). Start BFS from every node at once with only its own bit set, so any start node is allowed.
 The first time a state with all bits set is popped, the BFS level is the answer. Mark a state visited when it is pushed, so nodes and edges can be revisited with a different mask.
