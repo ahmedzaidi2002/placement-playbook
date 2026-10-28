@@ -38,6 +38,12 @@ layout: hextra-home
     icon="office-building"
   >}}
   {{< hextra/feature-card
+    title="Qualcomm"
+    subtitle="All 60 online-assessment questions with options and a toggle for the answer and a short explanation."
+    link="/companies/qualcomm"
+    icon="chip"
+  >}}
+  {{< hextra/feature-card
     title="System Design from zero"
     subtitle="A 21-day fresher track: HLD building blocks, classic designs, LLD with C++, revision pages and bonus designs."
     link="/system-design"
