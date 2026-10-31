@@ -50,7 +50,7 @@ Revelio was built by the **InfoSec** team for a Q1 2025 VPN vendor comparison. I
 It had **already reproduced the ~20% figure independently: 21.4% on 11,103 VPN IPs**. That is why the internship was framed as **productization**, not a rebuild. <span style="color:#0071bc"><strong>[Report]</strong></span>
 
 {{< callout type="warning" >}}
-**Be precise about credit.** The probe, the tunnel-and-playback idea and the first 21.4% run were InfoSec's. Your work was the layer that makes it repeatable, trustworthy and unattended. The report says this itself ("the bulk of the value was not new code"). Interviewers respect this, and an overclaim here is the easiest way to lose credibility. See [section 5](../05-resume-bullets/).
+**Be precise about credit.** The probe, the tunnel-and-playback idea and the first 21.4% run were InfoSec's. Your work was the layer that makes it repeatable, trustworthy and unattended. The report says this itself ("the bulk of the value was not new code"). Interviewers respect this, and an overclaim here is the easiest way to lose credibility. See [section 5](/projects/wbd/05-resume-bullets/).
 {{< /callout >}}
 
 ## The six gaps you closed

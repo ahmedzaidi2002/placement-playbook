@@ -40,5 +40,5 @@ You must do **well in any two of the three sections**, but a high overall score 
 Around **60 students** were taken forward for interviews. The candidate's warning: many of those were selected "just in case", and some batchmates did not get a second interview after a first one went badly. A higher score also leaves you more energy to spend on the interviews.
 
 {{< callout type="info" >}}
-**Editor's note.** Revision pointers for each section are on the [Preparation](../preparation) page, and the maths behind the quant items is worked there.
+**Editor's note.** Revision pointers for each section are on the [Preparation](/companies/goldman-sachs/preparation/) page, and the maths behind the quant items is worked there.
 {{< /callout >}}

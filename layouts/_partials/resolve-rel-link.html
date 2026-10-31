@@ -1,0 +1,27 @@
+{{- /* Placement Playbook: turn a relative link into a root-relative one, resolved the way a
+       browser would if the page URL ended in "/" (Hugo's pretty URLs). Served without the
+       slash (/companies/qualcomm instead of /companies/qualcomm/) the browser resolves a
+       bare "01-overview" or "../preparation" one level too high and the link 404s.
+       Input: dict "page" "link". Returns the link unchanged if it is absolute, external,
+       a fragment, mailto, or a .md link (Hextra's render hook handles those).
+       Markdown rendered through markdownify (callouts, tabs) reports the home page as its
+       page, so the real base is unknown there and the link is left as written. */ -}}
+{{- $link := .link -}}
+{{- $out := $link -}}
+{{- with and (not .page.IsHome) (try (urls.Parse $link)) -}}
+  {{- if not .Err -}}
+    {{- $u := .Value -}}
+    {{- if and $u.Path (not $u.IsAbs) (not (hasPrefix $u.Path "/")) (not (strings.HasSuffix $u.Path ".md")) -}}
+      {{- $abs := path.Join $.page.RelPermalink $u.Path -}}
+      {{- $q := cond (ne $u.RawQuery "") (printf "?%s" $u.RawQuery) "" -}}
+      {{- $f := cond (ne $u.Fragment "") (printf "#%s" $u.Fragment) "" -}}
+      {{- with or ($.page.GetPage $abs) ($.page.Resources.Get $u.Path) -}}
+        {{- $out = printf "%s%s%s" .RelPermalink $q $f -}}
+      {{- else -}}
+        {{- $slash := cond (strings.HasSuffix $u.Path "/") "/" "" -}}
+        {{- $out = printf "%s%s%s%s" $abs $slash $q $f -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $out -}}
