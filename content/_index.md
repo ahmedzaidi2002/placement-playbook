@@ -44,6 +44,12 @@ layout: hextra-home
     icon="chip"
   >}}
   {{< hextra/feature-card
+    title="Texas Instruments"
+    subtitle="Embedded software prep in TI's own topic order: theory from scratch plus 121 questions with answer toggles."
+    link="/companies/texas-instruments"
+    icon="light-bulb"
+  >}}
+  {{< hextra/feature-card
     title="System Design from zero"
     subtitle="A 21-day fresher track: HLD building blocks, classic designs, LLD with C++, revision pages and bonus designs."
     link="/system-design"
