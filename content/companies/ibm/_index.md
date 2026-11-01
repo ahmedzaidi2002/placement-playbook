@@ -3,34 +3,37 @@ title: IBM
 weight: 4
 ---
 
-IBM's coding round can include a **project question** instead of a classic DSA problem: you get an existing Node.js (JavaScript) backend for a ticket-booking app, and you have to finish **one function**, `validatePromoCode`, so that the project's tests pass. Nothing else in the codebase needs to change.
+IBM's coding round includes a **project question**: you get a working Node.js / Express codebase for an event-ticketing platform called **ShowPass**, opened in a **Web IDE** with a terminal, and you have to **fix the promo-code validation**. Promo codes are being accepted when they should be rejected: deleted codes, expired codes, codes for another event, used-up codes, and orders below the minimum ticket count.
 
-This section explains exactly what that question is, how to solve it in the exam, and a two-day plan with a practice project you can download and run.
+This section gives you the question as it appeared, the exact steps to solve it in the exam, the code, and a two-day plan with a practice project that copies the exam setup (server, curl scripts, `arguments.json`).
 
 ## At a glance
 
 | | |
 |---|---|
-| **Question type** | Fill in one function inside an existing project (not a from-scratch DSA problem) |
-| **Language / stack** | JavaScript, Node.js backend (the code has a `services` folder, so it is a routes → controllers → services layout) |
-| **Where the function is** | `services/` folder, in a file named like `promoCode…` (for example `promoCodeService.js`) |
-| **What to write** | 5 to 8 `if` checks inside `validatePromoCode` |
-| **How errors are reported** | `throw new Error("message")`, **not** `res.status(400).json(...)`. One `if` already in the function shows the pattern |
-| **What decides your score** | The project's test cases: each one checks a rule and the exact error message |
-| **Platform, time limit, number of questions in the round** | *not stated* |
+| **Where it appears** | Question 2 of the test (section S2 in the left bar); what Question 1 was is *not stated* |
+| **Environment** | Web IDE with a built-in terminal; you start the Express server yourself |
+| **Stack** | JavaScript, Node.js, Express |
+| **Task** | Fix promo-code validation so that **deleted** codes are not found, **dates** (start and end) are enforced, **usage limits** are enforced, **event-specific** codes only work on their event, and the **minimum ticket quantity** is enforced |
+| **Rules in detail** | `technical-specs/promo_code_validation.md`: response structure, validation rules, edge cases |
+| **Architecture** | `documents/ARCHITECTURE.md` |
+| **API docs** | Swagger at `/api-docs` while the server runs |
+| **Testing helpers** | `curl_scripts/`: `01_register_user.sh`, `02_login.sh`, `15_create_promo_code.sh`, `16_validate_promo_code.sh`, `17_create_order.sh`; all inputs come from `arguments.json`; more in `curl_scripts/HELPER.md` |
+| **How errors are raised** | Thrown from the service (`throw new …Error("message")`), not sent with `res` |
+| **Time limit, scoring, hidden tests** | *not stated* |
 | **Also reported for IBM** | A bash scripting question on a CSV file (top 20 rows, sorted ascending by one column and descending by another). It has its own local prep site, not part of this Playbook |
 
 ## Pages
 
 {{< cards >}}
-  {{< card link="01-promo-code-question" title="1 · The promo-code question" subtitle="What is asked, how the project is laid out, the 8 rules, the full solution with throw, and the traps that fail tests." icon="code" >}}
-  {{< card link="02-two-day-prep" title="2 · Two-day prep" subtitle="Day 1: the JavaScript and project basics plus the main drill. Day 2: three similar drills, a timed redo and the exam checklist." icon="calendar" >}}
+  {{< card link="01-promo-code-question" title="1 · The ShowPass promo-code question" subtitle="The statement, the files to open, the exact exam steps, the fix, and how to prove it with the curl scripts." icon="code" >}}
+  {{< card link="02-two-day-prep" title="2 · Two-day prep" subtitle="Day 1: JavaScript basics, reading an Express project, the exam-shaped drill. Day 2: four similar drills, a timed redo and the checklist." icon="calendar" >}}
 {{< /cards >}}
 
 ## Practice project
 
-[Download ibm-promo-practice.zip](/downloads/ibm-promo-practice.zip) (5 KB). It is a small copy of the exam setup: a `services` folder with `validatePromoCode` half written (one rule given, seven `TODO`s), three more practice functions, and 34 tests. Needs Node 18 or newer and nothing else; run `npm test` inside the folder. Out of the box 10 tests pass and 24 fail; the goal is 34 out of 34.
+[Download ibm-promo-practice.zip](/downloads/ibm-promo-practice.zip) (14 KB). It copies the exam's shape: a buggy `validatePromoCode` in `src/services/`, a soft-deleted code, a server you start with `npm start`, and a `curl_scripts/` folder with the same script names and an `arguments.json`. It has 53 tests: 19 on the exam task plus 34 on the extra drills. Needs Node 18 or newer, no `npm install`.
 
 {{< callout type="info" >}}
-**Editor's note.** The project, its field names and its error messages follow the version of the question you described. The real exam's field names and messages may differ slightly, which is why the method on page 1 starts with reading the model and the tests before writing any code.
+**Editor's note.** The statement, file names and script names come from your screenshots of the question. The field names, error classes and messages inside the real codebase were not visible, so the pages use the most likely ones (matching the Django version of the same question you were sent) and show you where to read the real ones in the first five minutes.
 {{< /callout >}}

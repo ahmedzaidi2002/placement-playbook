@@ -1,0 +1,17 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "register": { "name": "Test User", "email": "test@example.com", "password": "Passw0rd!" },
+  "login": { "email": "test@example.com", "password": "Passw0rd!" },
+  "createPromo": {
+    "code": "NEWCODE",
+    "discountPercent": 15,
+    "eventId": 1,
+    "minTickets": 2,
+    "maxUses": 2,
+    "validFrom": null,
+    "validTo": null
+  },
+  "validatePromo": { "code": "NEWCODE", "eventId": 1, "quantity": 2 },
+  "createOrder": { "eventId": 1, "quantity": 2, "promoCode": "NEWCODE" },
+  "deletePromo": { "code": "NEWCODE" }
+}

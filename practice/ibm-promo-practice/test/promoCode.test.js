@@ -1,125 +1,105 @@
 const test = require("node:test");
 const assert = require("node:assert");
-const { validatePromoCode, applyDiscount } = require("../src/services/promoCodeService");
+const PromoCode = require("../src/models/promoCodeModel");
+const { validatePromoCode } = require("../src/services/promoCodeService");
+const { createOrder } = require("../src/services/orderService");
 
 const DAY = 24 * 60 * 60 * 1000;
-const iso = (offsetDays) => new Date(Date.now() + offsetDays * DAY).toISOString().slice(0, 10);
+const daysFromNow = (n) => new Date(Date.now() + n * DAY).toISOString();
 
-function promo(overrides = {}) {
-  return {
-    code: "FEST50",
-    minTickets: 2,
-    maxTickets: 10,
-    startDate: iso(-5),
-    expiryDate: iso(5),
-    usageCount: 3,
-    maxUsageLimit: 100,
-    minOrderAmount: 500,
-    newUserOnly: false,
-    allowedEventIds: [101, 102],
-    ...overrides,
-  };
-}
+test.beforeEach(() => PromoCode.reset());
 
-const user = { id: 7, isFirstPurchase: false };
-const check = (p, q = 4, total = 1000, u = user, ev = 101) => () => validatePromoCode(p, q, total, u, ev);
-
-test("valid code returns true", () => {
-  assert.strictEqual(check(promo())(), true);
-});
-
-test("1. below minimum tickets", () => {
-  assert.throws(check(promo(), 1), { message: "Minimum of 2 tickets required" });
-});
-
-test("2. above maximum tickets", () => {
-  assert.throws(check(promo(), 11), { message: "Maximum of 10 tickets allowed" });
-});
-
-test("2. exactly min and max are allowed", () => {
-  assert.strictEqual(check(promo(), 2)(), true);
-  assert.strictEqual(check(promo(), 10)(), true);
-});
-
-test("3. expired code", () => {
-  const p = promo({ expiryDate: iso(-1) });
-  assert.throws(check(p), { message: `This promo code expired on ${p.expiryDate}` });
-});
-
-test("3. expiring today is still valid", () => {
-  assert.strictEqual(check(promo({ expiryDate: iso(0) }))(), true);
-});
-
-test("4. not started yet", () => {
-  const p = promo({ startDate: iso(2) });
-  assert.throws(check(p), { message: `This promo code is not active until ${p.startDate}` });
-});
-
-test("4. starting today is valid", () => {
-  assert.strictEqual(check(promo({ startDate: iso(0) }))(), true);
-});
-
-test("5. usage limit reached", () => {
-  assert.throws(check(promo({ usageCount: 100 })), {
-    message: "This promo code has reached its maximum redemption limit",
+const rejects = (fn, statusCode, message) =>
+  assert.throws(fn, (err) => {
+    assert.strictEqual(err.message, message);
+    assert.strictEqual(err.statusCode, statusCode);
+    return true;
   });
+
+test("a normal code is valid", () => {
+  const result = validatePromoCode("SAVE10", 1, 2);
+  assert.strictEqual(result.valid, true);
+  assert.strictEqual(result.promo.code, "SAVE10");
 });
 
-test("5. one use left is fine", () => {
-  assert.strictEqual(check(promo({ usageCount: 99 }))(), true);
+test("lookup ignores case and spaces", () => {
+  assert.strictEqual(validatePromoCode("  save10 ", 1, 2).valid, true);
 });
 
-test("6. cart below minimum order amount", () => {
-  assert.throws(check(promo(), 4, 499), { message: "Order total must be at least 500 to use this code" });
+test("unknown code: 404", () => {
+  rejects(() => validatePromoCode("NOPE", 1, 2), 404, "Promo code not found");
 });
 
-test("7. new-user code used by a returning user", () => {
-  assert.throws(check(promo({ newUserOnly: true })), {
-    message: "This promo code is restricted to first-time buyers only",
-  });
+test("deleted code: 404, same as unknown", () => {
+  rejects(() => validatePromoCode("OLDCODE", 1, 2), 404, "Promo code not found");
 });
 
-test("7. new-user code used by a first-time buyer", () => {
-  assert.strictEqual(check(promo({ newUserOnly: true }), 4, 1000, { id: 8, isFirstPurchase: true })(), true);
+test("code deleted after creation: 404", () => {
+  PromoCode.softDelete("SAVE10");
+  rejects(() => validatePromoCode("SAVE10", 1, 2), 404, "Promo code not found");
 });
 
-test("8. wrong event", () => {
-  assert.throws(check(promo(), 4, 1000, user, 999), {
-    message: "This promo code cannot be applied to the selected event",
-  });
+test("not yet active: 400", () => {
+  rejects(() => validatePromoCode("FUTURE20", 1, 2), 400, "Promo code is not yet valid");
 });
 
-test("8. event id as a string still matches", () => {
-  assert.strictEqual(check(promo(), 4, 1000, user, "102")(), true);
+test("expired: 400", () => {
+  rejects(() => validatePromoCode("EXPIRED5", 1, 2), 400, "Promo code has expired");
 });
 
-test("optional limits left null are skipped", () => {
-  const p = promo({ maxTickets: null, maxUsageLimit: null, minOrderAmount: null, allowedEventIds: [] });
-  assert.strictEqual(check(p, 50, 10, user, 999)(), true);
+test("inside the date window: valid", () => {
+  PromoCode.create({ code: "WINDOW", validFrom: daysFromNow(-1), validTo: daysFromNow(1) });
+  assert.strictEqual(validatePromoCode("WINDOW", 1, 2).valid, true);
 });
 
-test("first failing rule wins (min tickets before cart total)", () => {
-  assert.throws(check(promo(), 1, 10), { message: "Minimum of 2 tickets required" });
+test("usage limit reached: 400", () => {
+  rejects(() => validatePromoCode("USEDUP", 1, 2), 400, "Promo code usage limit reached");
 });
 
-test("applyDiscount: percent", () => {
-  assert.strictEqual(applyDiscount({ discountType: "PERCENT", discountValue: 20 }, 1000), 800);
+test("one use left: valid", () => {
+  PromoCode.create({ code: "LASTONE", maxUses: 5, currentUses: 4 });
+  assert.strictEqual(validatePromoCode("LASTONE", 1, 2).valid, true);
 });
 
-test("applyDiscount: percent capped by maxDiscount", () => {
-  assert.strictEqual(applyDiscount({ discountType: "PERCENT", discountValue: 50, maxDiscount: 300 }, 1000), 700);
+test("no usage limit set: valid", () => {
+  PromoCode.create({ code: "UNLIMITED", currentUses: 9999 });
+  assert.strictEqual(validatePromoCode("UNLIMITED", 1, 2).valid, true);
 });
 
-test("applyDiscount: flat never goes below zero", () => {
-  assert.strictEqual(applyDiscount({ discountType: "FLAT", discountValue: 500 }, 300), 0);
+test("event-specific code on its own event: valid (id as number or string)", () => {
+  assert.strictEqual(validatePromoCode("CONCERT50", 2, 2).valid, true);
+  assert.strictEqual(validatePromoCode("CONCERT50", "2", 2).valid, true);
 });
 
-test("applyDiscount: rounds to 2 decimals", () => {
-  assert.strictEqual(applyDiscount({ discountType: "PERCENT", discountValue: 33 }, 99.99), 66.99);
+test("event-specific code on another event: 400", () => {
+  rejects(() => validatePromoCode("CONCERT50", 1, 2), 400, "Promo code is not valid for this event");
 });
 
-test("applyDiscount: unknown type", () => {
-  assert.throws(() => applyDiscount({ discountType: "BOGO", discountValue: 1 }, 100), {
-    message: "Invalid discount type",
-  });
+test("event-specific code with no event given: 400", () => {
+  rejects(() => validatePromoCode("CONCERT50", undefined, 2), 400, "Promo code is not valid for this event");
+});
+
+test("below minimum quantity: 400", () => {
+  rejects(() => validatePromoCode("GROUP4", 1, 3), 400, "Minimum ticket quantity required is 4");
+});
+
+test("exactly the minimum quantity: valid, quantity may be a string", () => {
+  assert.strictEqual(validatePromoCode("GROUP4", 1, 4).valid, true);
+  assert.strictEqual(validatePromoCode("GROUP4", 1, "4").valid, true);
+});
+
+test("deleted beats every other rule", () => {
+  PromoCode.create({ code: "GONE", validTo: daysFromNow(-1), deletedAt: daysFromNow(-1) });
+  rejects(() => validatePromoCode("GONE", 1, 2), 404, "Promo code not found");
+});
+
+test("order path: the 6th order on a 5-use code is rejected", () => {
+  PromoCode.create({ code: "FIVE", maxUses: 5 });
+  for (let i = 0; i < 5; i++) createOrder(1, 1, 2, "FIVE");
+  rejects(() => createOrder(1, 1, 2, "FIVE"), 400, "Promo code usage limit reached");
+});
+
+test("order path: wrong event is rejected and the use is not counted", () => {
+  rejects(() => createOrder(1, 1, 2, "CONCERT50"), 400, "Promo code is not valid for this event");
+  assert.strictEqual(PromoCode.findByCode("CONCERT50").currentUses, 0);
 });

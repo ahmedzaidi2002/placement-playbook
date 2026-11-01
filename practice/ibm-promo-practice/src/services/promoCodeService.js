@@ -1,27 +1,25 @@
-// Promo code rules for the ticket-booking app.
-// Every failed rule throws an Error; the controller turns it into a 400 response.
+// Promo code validation for ShowPass-style ticketing.
+// Used by POST /api/promo-codes/validate and by order creation.
+// Bug report: deleted, expired, used-up and wrong-event codes are all accepted.
 
-function validatePromoCode(promoCode, quantity, cartTotal, currentUser, eventId) {
-  // One rule is already written, the way the exam hands it to you.
-  // Copy its shape for the other seven. Return true if every rule passes.
-  if (quantity < promoCode.minTickets) {
-    throw new Error(`Minimum of ${promoCode.minTickets} tickets required`);
+const PromoCode = require("../models/promoCodeModel");
+const { NotFoundError, BadRequestError } = require("../utils/errors");
+
+function validatePromoCode(code, eventId, quantity = 1) {
+  const promo = PromoCode.findByCode(code);
+
+  if (!promo) {
+    throw new NotFoundError("Promo code not found");
   }
 
-  // TODO: maximum tickets
-  // TODO: expiry date (a code expiring today is still valid)
-  // TODO: start date (a code starting today is valid)
-  // TODO: maximum redemption limit
-  // TODO: minimum order amount
-  // TODO: first-time buyers only
-  // TODO: allowed events
+  // TODO: deleted codes must behave as not found
+  // TODO: not yet active (before validFrom)
+  // TODO: expired (after validTo)
+  // TODO: usage limit (currentUses has reached maxUses)
+  // TODO: event restriction (promo.eventId set and different)
+  // TODO: minimum ticket quantity (minTickets)
 
-  return true;
+  return { valid: true, promo };
 }
 
-function applyDiscount(promoCode, cartTotal) {
-  // TODO: Drill 2 on the prep page
-  throw new Error("Not implemented");
-}
-
-module.exports = { validatePromoCode, applyDiscount };
+module.exports = { validatePromoCode };
