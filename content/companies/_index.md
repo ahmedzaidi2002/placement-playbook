@@ -13,6 +13,7 @@ preparation style, and the source account the page is built from.
   {{< card link="goldman-sachs" title="Goldman Sachs" subtitle="Resume screen → HackerRank (programming, quant, data science) → back-to-back interviews at 6 AM." icon="office-building" >}}
   {{< card link="qualcomm" title="Qualcomm" subtitle="60-question online assessment with answer toggles, plus 156 core-subject questions (OOPS, OS, digital, architecture) from eight campus papers." icon="chip" >}}
   {{< card link="texas-instruments" title="Texas Instruments" subtitle="Embedded software, by TI's own topic list: C and DS, embedded C, OS, computer architecture, microcontrollers. Theory plus 121 questions." icon="light-bulb" >}}
+  {{< card link="ibm" title="IBM" subtitle="Project question: finish validatePromoCode in a Node.js ticket-booking backend with throw-based checks. Solution, traps, two-day prep and a practice project." icon="code" >}}
 {{< /cards >}}
 
 More companies are added using the [template](/guide/adding-a-company).

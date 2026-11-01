@@ -1,0 +1,9 @@
+{
+  "name": "ibm-promo-practice",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Practice copy of the IBM promo-code validation task: fill the TODOs until npm test is green.",
+  "scripts": {
+    "test": "node --test"
+  }
+}
