@@ -5,26 +5,37 @@ cascade:
   type: docs
 ---
 
-Coding questions with a 2-3 line approach and a direct solution. The code has no comments, in C++17 `class Solution` style. Each solution was compiled and checked against a brute force on small random inputs.
+Every question we have from company tests, sorted by subject and then by topic. Each one shows which company asked it, then a toggle with the answer, **why** that answer is right, and the **concept** behind it explained from the start, so you can learn the idea and not just the option letter.
 
-| # | Problem | Platform | Level | Pattern | Source |
-|---|---|---|---|---|---|
-| 1 | [Shortest Path Visiting All Nodes](leetcode-847) | LeetCode 847 | Hard | BFS on (node, mask) | Spotnana Q1 (related), Flipkart Monica and Her Shifts (related) |
-| 2 | [Minimum Time to Collect All Apples in a Tree](leetcode-1443) | LeetCode 1443 | Medium | Tree DFS | Spotnana Q1 (related) |
-| 3 | [Minimum Time to Complete All Tasks](leetcode-2589) | LeetCode 2589 | Hard | Greedy by end time | Spotnana Q5 |
-| 4 | [K-th Largest Sum Contiguous Subarray](gfg-kth-largest-subarray-sum) | GeeksforGeeks | Medium | Min-heap of size k | Spotnana Q6 |
-| 5 | [Super M](codeforces-592d) | Codeforces 592D | 2200 | Tree diameter | Added |
-| 6 | [Maximum Profit with OR at Most K](recalled-or-subset-profit) | Recalled | Medium | Candidate masks | Recalled interview question |
-| 7 | [Subsequence With the Minimum Score](leetcode-2565) | LeetCode 2565 | Hard | Prefix + suffix, two pointers | Recalled interview question |
-| 8 | [Minimum Tree Depth After K Reattachments](recalled-reattach-tree-depth) | Recalled | Hard | Binary search + tree greedy | Recalled interview question |
-| 9 | [Sum of Balanced Nodes](flipkart-sum-of-balanced-nodes) | Flipkart OA | Medium | Postorder subtree sums | Flipkart OA, 24 Oct 2026 (IIT Delhi) |
-| 10 | [Binary Tree Tilt](leetcode-563) | LeetCode 563 | Easy | Postorder subtree sums | Flipkart OA (related to Sum of Balanced Nodes) |
-| 11 | [Count Nodes Equal to Average of Subtree](leetcode-2265) | LeetCode 2265 | Medium | Postorder (sum, count) | Flipkart OA (related to Sum of Balanced Nodes) |
-| 12 | [Most Frequent Subtree Sum](leetcode-508) | LeetCode 508 | Medium | Postorder + hash map | Flipkart OA (related to Sum of Balanced Nodes) |
-| 13 | [Monica and Her Shifts](flipkart-monica-and-her-shifts) | Flipkart OA | Hard | Bitmask DP over sites | Flipkart OA, 24 Oct 2026 (IIT Delhi) |
-| 14 | [Shortest Path to Get All Keys](leetcode-864) | LeetCode 864 | Hard | BFS on (cell, keys mask) | Flipkart OA (related to Monica and Her Shifts) |
-| 15 | [Unique Paths III](leetcode-980) | LeetCode 980 | Hard | Backtracking | Flipkart OA (related to Monica and Her Shifts) |
-| 16 | [Digit Sum of ASCII](flipkart-digit-sum-of-ascii) | Flipkart OA | Easy | Digit extraction | Flipkart OA, 24 Oct 2026 (IIT Delhi) |
-| 17 | [Sum of Digits of String After Convert](leetcode-1945) | LeetCode 1945 | Easy | Digit sum | Flipkart OA (related to Digit Sum of ASCII) |
-| 18 | [Difference Between Element Sum and Digit Sum of an Array](leetcode-2535) | LeetCode 2535 | Easy | Digit extraction | Flipkart OA (related to Digit Sum of ASCII) |
-| 19 | [Subtract the Product and Sum of Digits of an Integer](leetcode-1281) | LeetCode 1281 | Easy | Digit extraction | Flipkart OA (related to Digit Sum of ASCII) |
+The written questions come from the company question database (all non-coding questions from 31 companies) and the Qualcomm papers on this site. Repeats across companies are shown once, with every company that asked them.
+
+## By subject
+
+<!-- subject-cards:start -->
+{{< cards >}}
+  {{< card link="/question-bank/quantitative-aptitude/" title="Quantitative aptitude" subtitle="193 questions" icon="calculator" >}}
+  {{< card link="/question-bank/logical-reasoning/" title="Logical reasoning" subtitle="138 questions" icon="puzzle" >}}
+  {{< card link="/question-bank/verbal-ability/" title="Verbal ability" subtitle="73 questions" icon="book-open" >}}
+  {{< card link="/question-bank/mathematics/" title="Mathematics" subtitle="26 questions" icon="variable" >}}
+  {{< card link="/question-bank/c-programming/" title="C programming" subtitle="75 questions" icon="code" >}}
+  {{< card link="/question-bank/c-and-object-oriented-programming/" title="C++ and object-oriented programming" subtitle="40 questions" icon="cube" >}}
+  {{< card link="/question-bank/java/" title="Java" subtitle="7 questions" icon="code" >}}
+  {{< card link="/question-bank/python/" title="Python" subtitle="19 questions" icon="code" >}}
+  {{< card link="/question-bank/data-structures-and-algorithms/" title="Data structures and algorithms" subtitle="94 questions" icon="share" >}}
+  {{< card link="/question-bank/operating-systems/" title="Operating systems" subtitle="59 questions" icon="terminal" >}}
+  {{< card link="/question-bank/dbms-and-sql/" title="DBMS and SQL" subtitle="24 questions" icon="database" >}}
+  {{< card link="/question-bank/computer-networks/" title="Computer networks" subtitle="7 questions" icon="globe-alt" >}}
+  {{< card link="/question-bank/computer-architecture-and-digital-logic/" title="Computer architecture and digital logic" subtitle="162 questions" icon="chip" >}}
+  {{< card link="/question-bank/embedded-systems-and-electronics/" title="Embedded systems and electronics" subtitle="59 questions" icon="light-bulb" >}}
+  {{< card link="/question-bank/machine-learning/" title="Machine learning" subtitle="49 questions" icon="sparkles" >}}
+  {{< card link="/question-bank/software-engineering-and-web/" title="Software engineering and web" subtitle="33 questions" icon="server" >}}
+  {{< card link="/question-bank/interview-questions/" title="Interview questions" subtitle="5 questions" icon="chat" >}}
+  {{< card link="/question-bank/other/" title="Other" subtitle="30 questions" icon="cog" >}}
+{{< /cards >}}
+<!-- subject-cards:end -->
+
+## Coding problems
+
+{{< cards >}}
+  {{< card link="/question-bank/coding/" title="Coding problems" subtitle="19 problems with approach, C++17 solution and complexity" icon="code" >}}
+{{< /cards >}}
