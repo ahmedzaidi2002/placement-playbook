@@ -31,6 +31,8 @@ The slides split each subject by role. **Interns** get a lighter version of thre
 | Computer architecture | Caches, DMA, organisation, pipeline | **Not listed** | [4 · Computer architecture](04-computer-architecture) |
 | Microcontroller | 8051 assembly, interrupts, DMA, timers, memories, ADC, DAC, GPIO, SPI | Same | [5 · Microcontrollers](05-microcontrollers) |
 
+The aptitude section is not on TI's topic slide but is part of every online test, so it has its own page: [6 · Aptitude](06-aptitude), with the 20 aptitude questions from the 8 October 2026 assessment, full solutions, and the topics to study.
+
 ## How to study this section
 
 Go in the order of the pages. Each one builds on the previous: C first, then C as it is used on hardware, then the OS that runs it, then the processor underneath, then the microcontroller that brings it together.
@@ -70,6 +72,7 @@ Some TI keys circulated by candidates are wrong. Where the answer here differs f
   {{< card link="03-operating-systems" title="3 · Operating systems" subtitle="Processes, CPU scheduling, synchronisation and deadlock, virtual memory and allocation. 24 questions." icon="server" >}}
   {{< card link="04-computer-architecture" title="4 · Computer architecture" subtitle="Organisation, number formats, memory hierarchy and caches, DMA, pipelining and hazards. 22 questions." icon="cube" >}}
   {{< card link="05-microcontrollers" title="5 · Microcontrollers" subtitle="8051 and its assembly, interrupts, timers, UART, memories, ADC, DAC, GPIO, SPI. 24 questions." icon="light-bulb" >}}
+  {{< card link="06-aptitude" title="6 · Aptitude" subtitle="The 20 aptitude questions of the 8 Oct 2026 test with full solutions, plus the topics to study." icon="academic-cap" >}}
 {{< /cards >}}
 
 ## Revision checklist (the night before)
@@ -103,3 +106,7 @@ Tick each line only if you can explain it aloud without notes.
 - [ ] 8051 memory map, register banks, PSW flags, the five interrupt vectors
 - [ ] Timer reload value for a delay at 11.0592 MHz; TH1 for 9600 baud = FDh
 - [ ] ADC step = V<sub>ref</sub> / 2<sup>n</sup>; SPI wires and modes; SPI vs I²C vs UART
+
+**Aptitude** (full card at the end of [page 6](06-aptitude))
+- [ ] Ordering puzzles: draw slots, place fixed ends first; days mod 7; alphabet positions A=1 … Z=26
+- [ ] Time and work with LCM units; P(k items together among n) = (n − k + 1)! k! / n!
