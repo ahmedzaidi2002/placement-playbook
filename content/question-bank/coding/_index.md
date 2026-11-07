@@ -6,6 +6,8 @@ weight: 100
 
 Coding questions with a 2-3 line approach and a direct solution. The code has no comments, in C++17 `class Solution` style. Each solution was compiled and checked against a brute force on small random inputs.
 
+The 14 **MathWorks OA** problems (rows 20 to 33) have a longer explanation: the problem restated, the idea in easy words, step by step, a dry run, then the code. Where the report was incomplete (rows 22, 28, 29, 30, 33) the page says what was assumed.
+
 | # | Problem | Platform | Level | Pattern | Source |
 |---|---|---|---|---|---|
 | 1 | [Shortest Path Visiting All Nodes](leetcode-847) | LeetCode 847 | Hard | BFS on (node, mask) | Spotnana Q1 (related), Flipkart Monica and Her Shifts (related) |
@@ -27,3 +29,17 @@ Coding questions with a 2-3 line approach and a direct solution. The code has no
 | 17 | [Sum of Digits of String After Convert](leetcode-1945) | LeetCode 1945 | Easy | Digit sum | Flipkart OA (related to Digit Sum of ASCII) |
 | 18 | [Difference Between Element Sum and Digit Sum of an Array](leetcode-2535) | LeetCode 2535 | Easy | Digit extraction | Flipkart OA (related to Digit Sum of ASCII) |
 | 19 | [Subtract the Product and Sum of Digits of an Integer](leetcode-1281) | LeetCode 1281 | Easy | Digit extraction | Flipkart OA (related to Digit Sum of ASCII) |
+| 20 | [IP Address Request Filter](mathworks-ip-request-filter) | MathWorks OA | Medium | Wildcard match + sliding window per IP | MathWorks OA |
+| 21 | [IncrementStack](mathworks-increment-stack) | MathWorks OA | Medium | Lazy increments | MathWorks OA |
+| 22 | [Minimum Deletions to Make a String Beautiful](mathworks-min-deletions-beautiful-string) | MathWorks OA | Medium | Greedy, non-overlapping pairs | MathWorks OA (no constraints given) |
+| 23 | [Closest Pair of Points (Uniformly Distributed)](mathworks-closest-pair-uniform-points) | MathWorks OA | Hard | Grid bucketing | MathWorks OA |
+| 24 | [Subarrays With a Perfect-Square Product](mathworks-perfect-square-product-subarrays) | MathWorks OA | Medium | Prime parity mask + prefix XOR | MathWorks OA |
+| 25 | [Maximum Elements Picked With at Most One Skip](mathworks-max-picked-with-one-skip) | MathWorks OA | Medium | Prefix sums, skip the largest | MathWorks OA |
+| 26 | [Transform Binary String Using Subsequence Sort](leetcode-3998) | LeetCode 3998 | Medium | Prefix counts of ones | MathWorks OA |
+| 27 | [Longest Path With Different Adjacent Characters](leetcode-2246) | LeetCode 2246 | Hard | Tree DFS, best two children | MathWorks OA |
+| 28 | [Longest Path in a Tree With a Frequency Constraint](mathworks-longest-path-frequency-tree) | MathWorks OA | Medium | Tree diameter after cutting edges | MathWorks OA (statement reconstructed) |
+| 29 | [Minimum Operations to Empty the Array (Power-of-Two Sums)](mathworks-min-operations-power-of-two-groups) | MathWorks OA | Hard | Binary carrying, popcount | MathWorks OA (formula missing, assumed) |
+| 30 | [Count Subsets Whose OR Is Not in the Subset](mathworks-count-subsets-or-not-present) | MathWorks OA | Hard | Complement + SOS DP | MathWorks OA (no constraints given) |
+| 31 | [Number Game: Smallest String After Swaps](mathworks-number-game) | MathWorks OA | Medium | Greedy with three queues | MathWorks OA |
+| 32 | [Priority Reduction: Maximum Distinct Size](mathworks-priority-reduction) | MathWorks OA | Medium | Observation, parity | MathWorks OA |
+| 33 | [Minimum Subsequences With a Majority Element](mathworks-min-subsequences-majority) | MathWorks OA | Hard | Frequencies, greedy bosses | MathWorks OA (no constraints given) |
